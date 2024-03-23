@@ -11,8 +11,8 @@
     "rename-icon": "citra",
     "build-options": {
         "env": {
-            "CI": "1",
-            "GITHUB_ACTIONS": "1",
+            "CI": "0",
+            "GITHUB_ACTIONS": "0",
             "GITHUB_REPOSITORY": "citra-emu/citra-nightly",
             "GITHUB_REF_NAME": "nightly-2104"
         },
@@ -126,8 +126,8 @@
                 "-DCMAKE_CXX_COMPILER=clang++",
                 "-DCMAKE_LINKER=lld",
                 "-DENABLE_QT_TRANSLATION=ON",
-                "-DCITRA_ENABLE_COMPATIBILITY_REPORTING=ON",
-                "-DUSE_DISCORD_PRESENCE=ON",
+                "-DCITRA_ENABLE_COMPATIBILITY_REPORTING=OFF",
+                "-DUSE_DISCORD_PRESENCE=OFF",
                 "-DENABLE_COMPATIBILITY_LIST_DOWNLOAD=OFF",
                 "-DUSE_SYSTEM_SDL2=ON"
             ],
@@ -147,16 +147,12 @@
             ],
             "sources": [
                 {
-                    "type": "archive",
-                    "url": "https://github.com/citra-emu/citra-nightly/releases/download/nightly-2104/citra-unified-source-20240303-0ff3440.tar.xz",
-                    "sha256": "cb349e15d2982c878de35a2aaa6e6d97ac5882a57ec268721b0ddb012f1744ab",
-                    "x-checker-data": {
-                        "type": "json",
-                        "url": "https://api.github.com/repos/citra-emu/citra-nightly/releases/latest",
-                        "version-query": ".tag_name",
-                        "url-query": ".assets[] | .browser_download_url | match(\"https://.+citra-unified-source-.+.xz$\") | .string",
-                        "is-main-source": true
-                    }
+                    "type": "git",
+                    "url": "https://github.com/ourfavoritefruits/citra-nightly.git"
+                },
+                {
+                  "type": "patch",
+                  "path": "0001-build-fortifysource.patch"
                 },
                 {
                     "type": "file",
